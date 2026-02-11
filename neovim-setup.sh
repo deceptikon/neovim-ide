@@ -98,21 +98,38 @@ require("lazy").setup({
     },
 })
 
--- [6. ГОРЯЧИЕ КЛАВИШИ] (Ленивые вызовы)
+-- [5. ГОРЯЧИЕ КЛАВИШИ]
 local map = vim.keymap.set
-map("n", "<leader>ff", function() require('telescope.builtin').find_files() end, { desc = "Files" })
-map("n", "<leader>fg", function() require('telescope.builtin').live_grep() end, { desc = "Grep" })
-map("n", "<leader>e", ":Oil<CR>", { desc = "Explorer" })
-map("n", "gd", function() vim.lsp.buf.definition() end, { desc = "Definition" })
+
+-- Функция для маппинга сразу на двух языках (чтобы не дублировать код)
+local function duo_map(mode, key_en, key_ru, target, desc)
+    map(mode, "<leader>" .. key_en, target, { desc = desc })
+    map(mode, "<leader>" .. key_ru, target, { desc = desc .. " (RU)" })
+end
+
+-- Поиск (Telescope)
+-- f -> а, g -> п, b -> и
+duo_map("n", "ff", "аа", function() require('telescope.builtin').find_files() end, "Find Files")
+duo_map("n", "fg", "ап", function() require('telescope.builtin').live_grep() end, "Search Text")
+duo_map("n", "fb", "аи", function() require('telescope.builtin').buffers() end, "Buffers")
+
+-- Проводник (Oil)
+-- e -> у
+duo_map("n", "e", "у", ":Oil<CR>", "Explorer")
+
+-- Код (LSP)
+-- d -> в
+map("n", "gd", function() vim.lsp.buf.definition() end, { desc = "Go to Definition" })
+map("n", "пв", function() vim.lsp.buf.definition() end, { desc = "Go to Definition (RU)" }) -- g=п, d=в
 
 -- AIDER
-map("n", "<leader>a", function()
+-- a -> ф
+duo_map("n", "a", "ф", function()
     if not _aider_term then
         _aider_term = require("toggleterm.terminal").Terminal:new({ cmd = "aider --model vertex_ai/gemini-3-pro", direction = "float" })
     end
     _aider_term:toggle()
-end, { desc = "Aider" })
-EOF
+end, "Aider")
 
 # 4. Установка (Headless)
 echo "⏳ Синхронизация плагинов в фоне..."
