@@ -27,6 +27,16 @@ vim.g.mapleader = " "
 -- [2. ФИКС КИРИЛЛИЦЫ] (Работает сразу после установки)
 opt.langmap = 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
 
+-- 2.5 whitespaces
+opt.list = true -- Включить отображение невидимых символов
+opt.listchars = { 
+    tab = '→ ',    -- Табы будут стрелками
+    space = '·',   -- ВСЕ пробелы будут точками (может быть пестро)
+    trail = '•',   -- Лишние пробелы в конце строки будут жирными точками
+    extends = '⟩', 
+    precedes = '⟨' 
+}
+
 -- [3. ПРЕДОХРАНИТЕЛЬ ДЛЯ HEADLESS]
 local is_headless = #vim.api.nvim_list_uis() == 0
 
@@ -130,6 +140,7 @@ duo_map("n", "a", "ф", function()
     end
     _aider_term:toggle()
 end, "Aider")
+EOF
 
 # 4. Установка (Headless)
 echo "⏳ Синхронизация плагинов в фоне..."

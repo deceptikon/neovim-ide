@@ -94,3 +94,20 @@ Comes with **Tokyo Night** by default. You can easily hot-swap to **Catppuccin**
 
 ---
 *Собрано с ОКР-перфекционизмом. Без лишних сучков и задоринок.*
+
+
+
+Run the key  init script with arguments:
+
+    With custom location:
+
+    `./configure_aider_gcp.sh /path/to/your/service-account-key.json us-east5`
+
+    Using the default location (us-central1):
+
+    `./configure_aider_gcp.sh /path/to/your/service-account-key.json`
+
+
+
+
+
